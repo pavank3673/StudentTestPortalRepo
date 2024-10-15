@@ -236,7 +236,9 @@ function viewResult() {
 }
 
 function viewStudentsResult() {
-  console.log("------------Students Results------------");
+  console.log(
+    "\nClass Results:\n+------+---------+-------------+-------------------+\n| Name | Roll No | Total Marks | Percentage        | \n+------+---------+-------------+-------------------+"
+  );
 
   for (let student of studentsList) {
     if (student.total_marks == undefined) {
@@ -248,11 +250,15 @@ function viewStudentsResult() {
       student.percentage = (student.total_marks / 300) * 100;
     }
 
-    console.log("Student Name : " + student.name);
-    console.log("Student Roll No : " + student.roll_no);
-    console.log("Student Total Marks : " + student.total_marks);
-    console.log("Student Percentage : " + student.percentage);
-    console.log("- - - - - - - - - - - - - - - - - - - -");
+    console.log(
+      student.name +
+        "\t" +
+        student.roll_no +
+        "\t  " +
+        student.total_marks +
+        "\t\t" +
+        student.percentage
+    );
   }
 
   menuDisplay();
@@ -277,6 +283,8 @@ function viewClasswiseResult() {
       );
     }
   }
+
+  menuDisplay();
 }
 
 function menuDisplay() {
