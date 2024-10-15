@@ -258,9 +258,30 @@ function viewStudentsResult() {
   menuDisplay();
 }
 
+function viewClasswiseResult() {
+  let classInput = question("Enter Class to view the result : ");
+
+  console.log(
+    "\nClass Results:\n+------+---------+-------------+-------------------+\n| Name | Roll No | Total Marks | Percentage        | \n+------+---------+-------------+-------------------+"
+  );
+  for (let student of studentsList) {
+    if (student.class == classInput) {
+      console.log(
+        student.name +
+          "\t" +
+          student.roll_no +
+          "\t  " +
+          student.total_marks +
+          "\t\t" +
+          student.percentage
+      );
+    }
+  }
+}
+
 function menuDisplay() {
   let choice = question(
-    "Display Menu :-\n 1) Take Test \n 2) View Result \n 3) View Students Result \n"
+    "Display Menu :-\n 1) Take Test \n 2) View Result \n 3) View Students Result \n 4) View Classwise Result \n"
   );
 
   if (choice == 1) {
@@ -269,6 +290,8 @@ function menuDisplay() {
     viewResult();
   } else if (choice == 3) {
     viewStudentsResult();
+  } else if (choice == 4) {
+    viewClasswiseResult();
   }
 }
 
