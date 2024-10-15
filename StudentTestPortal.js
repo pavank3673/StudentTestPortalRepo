@@ -202,10 +202,33 @@ studentsList[24] = {
   test_score: [],
 };
 
+function takeTest() {
+  for (let student of studentsList) {
+    student.test_score = [
+      {
+        sub_name: "Physics",
+        marks: Math.floor(Math.random() * 100),
+      },
+      {
+        sub_name: "Chemistry",
+        marks: Math.floor(Math.random() * 100),
+      },
+      {
+        sub_name: "Mathematics",
+        marks: Math.floor(Math.random() * 100),
+      },
+    ];
+  }
+}
+
 function menuDisplay() {
   let choice = question(
     "Display Menu :-\n 1) Take Test \n 2) View Result \n 3) View Students Result \n"
   );
+
+  if (choice == 1) {
+    takeTest();
+  }
 }
 
 menuDisplay();
