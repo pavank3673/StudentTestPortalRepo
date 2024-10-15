@@ -235,6 +235,29 @@ function viewResult() {
   menuDisplay();
 }
 
+function viewStudentsResult() {
+  console.log("------------Students Results------------");
+
+  for (let student of studentsList) {
+    if (student.total_marks == undefined) {
+      student.total_marks = student.test_score.reduce((total, score) => {
+        return total + score.marks;
+      }, 0);
+    }
+    if (student.percentage == undefined) {
+      student.percentage = (student.total_marks / 300) * 100;
+    }
+
+    console.log("Student Name : " + student.name);
+    console.log("Student Roll No : " + student.roll_no);
+    console.log("Student Total Marks : " + student.total_marks);
+    console.log("Student Percentage : " + student.percentage);
+    console.log("- - - - - - - - - - - - - - - - - - - -");
+  }
+
+  menuDisplay();
+}
+
 function menuDisplay() {
   let choice = question(
     "Display Menu :-\n 1) Take Test \n 2) View Result \n 3) View Students Result \n"
@@ -244,6 +267,8 @@ function menuDisplay() {
     takeTest();
   } else if (choice == 2) {
     viewResult();
+  } else if (choice == 3) {
+    viewStudentsResult();
   }
 }
 
