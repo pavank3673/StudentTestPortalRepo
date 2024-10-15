@@ -219,6 +219,20 @@ function takeTest() {
       },
     ];
   }
+
+  menuDisplay();
+}
+
+function viewResult() {
+  for (let student of studentsList) {
+    student.total_marks = student.test_score.reduce((total, score) => {
+      return total + score.marks;
+    }, 0);
+
+    student.percentage = (student.total_marks / 300) * 100;
+  }
+
+  menuDisplay();
 }
 
 function menuDisplay() {
@@ -228,6 +242,8 @@ function menuDisplay() {
 
   if (choice == 1) {
     takeTest();
+  } else if (choice == 2) {
+    viewResult();
   }
 }
 
