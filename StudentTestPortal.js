@@ -360,9 +360,45 @@ function detailAnalysisResult() {
   menuDisplay();
 }
 
+function viewTopPerformer() {
+  let groupedClass = new Map();
+
+  studentsList.forEach((student) => {
+    let cls = student.class;
+    if (groupedClass.has(cls)) {
+      groupedClass.get(cls).push(student);
+    } else {
+      groupedClass.set(cls, [student]);
+    }
+  });
+
+  console.log(
+    "\nView Top Performer:\n+-------+-------------+-------------+-------------+\n| Class | Topper 1    | Topper 2    | Topper 3    |\n+-------+-------------+-------------+-------------+"
+  );
+
+  for (let [cls, students] of groupedClass) {
+    students.sort((studentx, studenty) => {
+      return studentx.percentage - studenty.percentage;
+    });
+
+    console.log(
+      " " +
+        cls +
+        "\t " +
+        students[students.length - 1].name +
+        "\t       " +
+        students[students.length - 2].name +
+        "\t     " +
+        students[students.length - 3].name
+    );
+  }
+
+  menuDisplay();
+}
+
 function menuDisplay() {
   let choice = question(
-    "Display Menu :-\n 1) Take Test \n 2) View Result \n 3) View Students Result \n 4) View Classwise Result \n 5) Detail Analysis of Result \n"
+    "Display Menu :-\n 1) Take Test \n 2) View Result \n 3) View Students Result \n 4) View Classwise Result \n 5) Detail Analysis of Result \n 6) View Top Performer \n"
   );
 
   if (choice == 1) {
@@ -375,6 +411,8 @@ function menuDisplay() {
     viewClasswiseResult();
   } else if (choice == 5) {
     detailAnalysisResult();
+  } else if (choice == 6) {
+    viewTopPerformer();
   }
 }
 
