@@ -287,9 +287,82 @@ function viewClasswiseResult() {
   menuDisplay();
 }
 
+function detailAnalysisResult() {
+  let groupedClass = new Map();
+
+  studentsList.forEach((student) => {
+    let cls = student.class;
+    if (groupedClass.has(cls)) {
+      groupedClass.get(cls).push(student);
+    } else {
+      groupedClass.set(cls, [student]);
+    }
+  });
+
+  console.log(
+    "\nDetails Analysis of Result:\n+-------+---------------+---------------+-----------+-------+-----------------+----------+-----------------+----------+\n| Class | Student Count | Average Marks | Average % | Grade | Failed Students | Failed % | Passed Students | Passed % | \n+-------+---------------+---------------+-----------+-------+-----------------+----------+-----------------+----------+"
+  );
+
+  for (let [cls, students] of groupedClass) {
+    let passedStudentCount = 0;
+    let failedStudentCount = 0;
+
+    let classTotalMarks = students.reduce((total, student) => {
+      if (student.percentage >= 35 && student.percentage <= 100) {
+        passedStudentCount++;
+      } else {
+        failedStudentCount++;
+      }
+
+      return total + student.total_marks;
+    }, 0);
+
+    let classAverageTotalMarks = classTotalMarks / students.length;
+    let classAveragePercentage = (classAverageTotalMarks / 300) * 100;
+
+    let classGrade = "";
+
+    if (classAveragePercentage >= 80 && classAveragePercentage <= 100) {
+      classGrade = "A";
+    } else if (classAveragePercentage >= 60) {
+      classGrade = "B";
+    } else if (classAveragePercentage >= 35) {
+      classGrade = "C";
+    } else {
+      classGrade = "F";
+    }
+
+    let passedStudentPercentage = (passedStudentCount / students.length) * 100;
+    let failedStudentPercentage = (failedStudentCount / students.length) * 100;
+
+    console.log(
+      " " +
+        cls +
+        " \t " +
+        students.length +
+        "\t\t " +
+        classAverageTotalMarks.toFixed(1) +
+        "\t\t " +
+        classAveragePercentage.toFixed(1) +
+        "\t     " +
+        classGrade +
+        "\t     " +
+        failedStudentCount +
+        "\t\t       " +
+        failedStudentPercentage.toFixed(1) +
+        "\t  " +
+        passedStudentCount +
+        "\t\t    " +
+        passedStudentPercentage.toFixed(1)
+    );
+  }
+
+  menuDisplay();
+}
+
 function menuDisplay() {
   let choice = question(
-    "Display Menu :-\n 1) Take Test \n 2) View Result \n 3) View Students Result \n 4) View Classwise Result \n"
+    "Display Menu :-\n 1) Take Test \n 2) View Result \n 3) View Students Result \n 4) View Classwise Result \n 5) Detail Analysis of Result \n"
   );
 
   if (choice == 1) {
@@ -300,6 +373,8 @@ function menuDisplay() {
     viewStudentsResult();
   } else if (choice == 4) {
     viewClasswiseResult();
+  } else if (choice == 5) {
+    detailAnalysisResult();
   }
 }
 
